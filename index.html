@@ -7,5 +7,27 @@
   </head>
   <body>
     <h1>Hello!</h1>
+
+    <button onclick="requestPermission()">알림 권한 요청</button>
+
+    <script>
+      function requestPermission() {
+        if (!("Notification" in window)) {
+          alert("이 브라우저는 알림을 지원하지 않습니다.");
+          return;
+        }
+
+        Notification.requestPermission()
+          .then((permission) => {
+            alert(`권한 상태: ${permission}`);
+            if (permission === "granted") {
+              // FCM 토큰 요청 로직 여기서 실행
+            }
+          })
+          .catch((err) => {
+            alert("권한 요청 실패: " + err);
+          });
+      }
+    </script>
   </body>
 </html>
